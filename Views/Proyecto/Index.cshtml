@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Proyecto_1.Models.Proyecto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Proyectos</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="alert-warning">@ViewBag.Mensaje</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.intClienteDueno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IDProyecto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.strNombreProyecto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.intCantidadDeDormitorios)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.intCantidadDeBanosCompletos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.intCantidadDeMediosBanos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.boolSalaEstaIntegradaConLaCocina)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.boolAreaDePilasEsAbierta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Terraza)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoDePiso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MuebleDeCocina)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MetrosDeConstruccionAproximado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CostoAproximadoPorMetroCuadrado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.intClienteDueno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDProyecto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.strNombreProyecto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.intCantidadDeDormitorios)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.intCantidadDeBanosCompletos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.intCantidadDeMediosBanos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.boolSalaEstaIntegradaConLaCocina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.boolAreaDePilasEsAbierta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Terraza)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoDePiso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MuebleDeCocina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MetrosDeConstruccionAproximado)
+                </td>
+                <td>
+                    @{
+                        var costo = item.CostoFinal();
+                    }
+                    @Html.DisplayFor(modelItem => costo)
+                </td>
+                <td>
+                    <!--Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })-->
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

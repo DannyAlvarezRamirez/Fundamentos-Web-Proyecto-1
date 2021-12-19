@@ -1,0 +1,110 @@
+﻿@model Proyecto_1.Models.Proyecto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Crear</h1>
+
+<h4>Proyecto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="intClienteDueno" class="control-label">ID del Cliente Dueno del Proyecto</label>
+                <!--<input asp-for="intClienteDueno" class="form-control" />-->
+                <div>
+                    <!--Html.DropDownList("Lista De Cedulas", (IEnumerable<SelectListItem>)ViewBag.MySkills, "Seleccionar")-->
+                    <!--Html.DropDownList("MySkills", (IEnumerable<SelectListItem>)ViewData["MySkills"])-->
+                    @{ 
+                        //para llenar la cedula del cliente dueno de proyecto
+                        List<Proyecto_1.Models.Cliente> listaDeClientes = new List<Proyecto_1.Models.Cliente>();
+                        listaDeClientes = Proyecto_1.Controllers.ClienteController.ObtenerLista();
+                        //colocar lista de cedulas para identificador de cliente dueno de proyecto
+                        List<SelectListItem> listaDeCedulas = new List<SelectListItem>();
+                        //llenamos la lista
+                        foreach (Proyecto_1.Models.Cliente cliente in listaDeClientes)
+                        {
+                            if (cliente is not null)
+                            {
+                                listaDeCedulas.Add(new SelectListItem("Nombre: " + cliente.NombreCompletoCliente + ", Cedula: " + cliente.intCedulaCliente.ToString(), cliente.intCedulaCliente.ToString()));
+                            }
+                        }//fin foreach
+                         //fin llenar la cedula del cliente dueno de proyecto
+                    }
+                    @Html.DropDownListFor(model => model.intClienteDueno, listaDeCedulas, "Seleccionar", "Cedulas")
+                </div>
+                <span asp-validation-for="intClienteDueno" class="text-danger"></span>
+                </div>
+            <!--<div class="form-group">
+                <label asp-for="IDProyecto" class="control-label">ID del Proyecto</label>
+                <input asp-for="IDProyecto" class="form-control" readonly/>
+                <span asp-validation-for="IDProyecto" class="text-danger"></span>
+            </div>-->
+            <div class="form-group">
+                <label asp-for="strNombreProyecto" class="control-label">Nombre del Proyecto</label>
+                <input asp-for="strNombreProyecto" class="form-control" />
+                <span asp-validation-for="strNombreProyecto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="intCantidadDeDormitorios" class="control-label">Cantidad de Dormitorios</label>
+                <input asp-for="intCantidadDeDormitorios" class="form-control" />
+                <span asp-validation-for="intCantidadDeDormitorios" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="intCantidadDeBanosCompletos" class="control-label">Cantidad de Banos</label>
+                <input asp-for="intCantidadDeBanosCompletos" class="form-control" />
+                <span asp-validation-for="intCantidadDeBanosCompletos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="intCantidadDeMediosBanos" class="control-label">Cantidad de Medios Banos</label>
+                <input asp-for="intCantidadDeMediosBanos" class="form-control" />
+                <span asp-validation-for="intCantidadDeMediosBanos" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="boolSalaEstaIntegradaConLaCocina" />La sala esta integrada con la cocina?
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="boolAreaDePilasEsAbierta" />El area de pilas es abierta?
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Terraza" class="control-label">Tipo de terraza</label>
+                <select asp-for="Terraza" class="form-control" asp-items="Html.GetEnumSelectList<Terraza>()"></select>
+                <span asp-validation-for="Terraza" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoDePiso" class="control-label">Tipo de piso</label>
+                <select asp-for="TipoDePiso" class="form-control" asp-items="Html.GetEnumSelectList<TipoDePiso>()"></select>
+                <span asp-validation-for="TipoDePiso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MuebleDeCocina" class="control-label">Tipo de muebles de cocina</label>
+                <select asp-for="MuebleDeCocina" class="form-control" asp-items="Html.GetEnumSelectList<MuebleDeCocina>()"></select>
+                <span asp-validation-for="MuebleDeCocina" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MetrosDeConstruccionAproximado" class="control-label">Rango de construccion aproximado en metros</label>
+                <select asp-for="MetrosDeConstruccionAproximado" class="form-control" asp-items="Html.GetEnumSelectList<MetrosDeConstruccionAproximado>()"></select>
+                <span asp-validation-for="MetrosDeConstruccionAproximado" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
